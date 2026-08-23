@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VEYRO — Your Style</title>
-
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
@@ -24,202 +24,144 @@
   </button>
 </header>
 
-<section class="hero" id="home">
-  <div>
-    <h1>YOUR<br>STYLE.<br>VEYRO.</h1>
-    <p>Modern, sade ve rahat streetwear.</p>
-    <a href="#urunler" class="shop-btn">ALIŞVERİŞE BAŞLA</a>
-  </div>
-
-  <div class="hero-image">VEYRO</div>
-</section>
-
-<section class="products-section" id="urunler">
-
-  <h2>Yeni Koleksiyon</h2>
-
-  <div class="products">
-
-    <div class="product">
-
-      <div
-        class="product-image black"
-        onclick="document.getElementById('productDetail').classList.add('active')"
-      >
-        <img
-          src="IMG_1713.jpeg"
-          alt="VEYRO Siyah Tişört"
-        >
-      </div>
-
-      <div class="product-info">
-
-        <h3>VEYRO Oversize — Siyah</h3>
-
-        <div class="price">499 TL</div>
-
-        <select id="black">
-          <option value="">Beden seç</option>
-          <option>S</option>
-          <option>M</option>
-          <option>L</option>
-          <option>XL</option>
-        </select>
-
-        <button onclick="addToCart('VEYRO Oversize Siyah',499,'black')">
-          Sepete Ekle
-        </button>
-
-      </div>
+<main>
+  <section class="hero" id="home">
+    <div>
+      <h1>YOUR<br>STYLE.<br>VEYRO.</h1>
+      <p>Modern, sade ve rahat streetwear.</p>
+      <a href="#urunler" class="shop-btn">ALIŞVERİŞE BAŞLA</a>
     </div>
 
+    <div class="hero-image">VEYRO</div>
+  </section>
 
-    <div class="product">
+  <section class="products-section" id="urunler">
+    <h2>Yeni Koleksiyon</h2>
 
-      <div
-        class="product-image white"
-        onclick="openProduct(
-          'VEYRO Oversize — Beyaz',
-          499,
-          'https://placehold.co/600x700/f2f2f2/111?text=VEYRO'
-        )"
-      >
-        <img
-          src="https://placehold.co/600x700/f2f2f2/111?text=VEYRO"
-          alt="VEYRO Beyaz Tişört"
+    <div class="products">
+
+      <!-- Siyah Ürün -->
+      <div class="product">
+        <div 
+          class="product-image black" 
+          onclick="openProduct('VEYRO Oversize — Siyah', 499, 'IMG_1713.jpeg')"
         >
+          <img src="IMG_1713.jpeg" alt="VEYRO Siyah Tişört">
+        </div>
+
+        <div class="product-info">
+          <h3>VEYRO Oversize — Siyah</h3>
+          <div class="price">499 TL</div>
+
+          <select id="black" required>
+            <option value="">Beden seç</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+
+          <button onclick="addToCart('VEYRO Oversize Siyah', 499, 'black')">
+            Sepete Ekle
+          </button>
+        </div>
       </div>
 
-      <div class="product-info">
-
-        <h3>VEYRO Oversize — Beyaz</h3>
-
-        <div class="price">499 TL</div>
-
-        <select id="white">
-          <option value="">Beden seç</option>
-          <option>S</option>
-          <option>M</option>
-          <option>L</option>
-          <option>XL</option>
-        </select>
-
-        <button onclick="addToCart('VEYRO Oversize Beyaz',499,'white')">
-          Sepete Ekle
-        </button>
-
-      </div>
-    </div>
-
-
-    <div class="product">
-
-      <div
-        class="product-image gray"
-        onclick="openProduct(
-          'VEYRO Oversize — Antrasit',
-          499,
-          'https://placehold.co/600x700/555/fff?text=VEYRO'
-        )"
-      >
-        <img
-          src="https://placehold.co/600x700/555/fff?text=VEYRO"
-          alt="VEYRO Antrasit Tişört"
+      <!-- Beyaz Ürün -->
+      <div class="product">
+        <div 
+          class="product-image white" 
+          onclick="openProduct('VEYRO Oversize — Beyaz', 499, 'https://placehold.co/600x700/f2f2f2/111?text=VEYRO')"
         >
+          <img src="https://placehold.co/600x700/f2f2f2/111?text=VEYRO" alt="VEYRO Beyaz Tişört">
+        </div>
+
+        <div class="product-info">
+          <h3>VEYRO Oversize — Beyaz</h3>
+          <div class="price">499 TL</div>
+
+          <select id="white" required>
+            <option value="">Beden seç</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
+
+          <button onclick="addToCart('VEYRO Oversize Beyaz', 499, 'white')">
+            Sepete Ekle
+          </button>
+        </div>
       </div>
 
-      <div class="product-info">
+      <!-- Antrasit Ürün -->
+      <div class="product">
+        <div 
+          class="product-image gray" 
+          onclick="openProduct('VEYRO Oversize — Antrasit', 499, 'https://placehold.co/600x700/555/fff?text=VEYRO')"
+        >
+          <img src="https://placehold.co/600x700/555/fff?text=VEYRO" alt="VEYRO Antrasit Tişört">
+        </div>
 
-        <h3>VEYRO Oversize — Antrasit</h3>
+        <div class="product-info">
+          <h3>VEYRO Oversize — Antrasit</h3>
+          <div class="price">499 TL</div>
 
-        <div class="price">499 TL</div>
+          <select id="gray" required>
+            <option value="">Beden seç</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+          </select>
 
-        <select id="gray">
-          <option value="">Beden seç</option>
-          <option>S</option>
-          <option>M</option>
-          <option>L</option>
-          <option>XL</option>
-        </select>
-
-        <button onclick="addToCart('VEYRO Oversize Antrasit',499,'gray')">
-          Sepete Ekle
-        </button>
-
+          <button onclick="addToCart('VEYRO Oversize Antrasit', 499, 'gray')">
+            Sepete Ekle
+          </button>
+        </div>
       </div>
+
     </div>
+  </section>
 
-  </div>
-</section>
-
-
-<section class="features" id="hakkimizda">
-
-  <div>
-    <h3>Kaliteli Kumaş</h3>
-    <p>Rahat oversize kesim.</p>
-  </div>
-
-  <div>
-    <h3>Hızlı Kargo</h3>
-    <p>Siparişlerini hızlıca hazırlıyoruz.</p>
-  </div>
-
-  <div>
-    <h3>VEYRO Tarzı</h3>
-    <p>Sade tasarım. Güçlü görünüm.</p>
-  </div>
-
-</section>
-
+  <section class="features" id="hakkimizda">
+    <div>
+      <h3>Kaliteli Kumaş</h3>
+      <p>Rahat oversize kesim.</p>
+    </div>
+    <div>
+      <h3>Hızlı Kargo</h3>
+      <p>Siparişlerini hızlıca hazırlıyoruz.</p>
+    </div>
+    <div>
+      <h3>VEYRO Tarzı</h3>
+      <p>Sade tasarım. Güçlü görünüm.</p>
+    </div>
+  </section>
+</main>
 
 <footer>
   <h2>VEYRO</h2>
   <p>YOUR STYLE. YOUR WAY.</p>
 </footer>
 
-
+<!-- Sepet Paneli -->
 <div id="cartPanel">
-
   <button onclick="closeCart()">×</button>
-
   <h2>Sepetim</h2>
-
   <div id="cartItems"></div>
-
-  <h3>
-    Toplam:
-    <span id="cartTotal">0</span> TL
-  </h3>
-
-  <button onclick="checkout()">
-    Siparişe Geç
-  </button>
-
+  <h3>Toplam: <span id="cartTotal">0</span> TL</h3>
+  <button onclick="checkout()">Siparişe Geç</button>
 </div>
+
+<!-- Ürün Detay Modalı -->
 <div id="productDetail">
-
-
   <button onclick="closeProduct()">×</button>
-
   <div class="detail-image">
-
-    <img
-      id="detailImage"
-      src="https://placehold.co/600x700/111/fff?text=VEYRO"
-      alt="VEYRO"
-    >
-
+    <img id="detailImage" src="https://placehold.co/600x700/111/fff?text=VEYRO" alt="VEYRO">
   </div>
-
-  
-
-    <p>VEYRO</p>
+  <p id="detailTitle">VEYRO</p>
 </div>
-
-</div>
-
-<script src="script.js"></script>
 
 </body>
 </html>
