@@ -152,17 +152,3 @@ function changePhoto(direction) {
     productPhotos[currentPhoto];
 }
 
-function changePhoto(direction) {
-  currentPhoto += direction;
-
-  if (currentPhoto >= productPhotos.length) {
-    currentPhoto = 0;
-  }
-
-  if (currentPhoto < 0) {
-    currentPhoto = productPhotos.length - 1;
-  }
-
-  document.getElementById("detailImage").src =
-    productPhotos[currentPhoto];
-}
