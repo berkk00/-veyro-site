@@ -129,4 +129,25 @@ function checkout() {
   alert(
     "Sipariş sistemi şu anda demo aşamasında."
   );
+}const productPhotos = [
+  "IMG_1713.jpeg",
+  "IMG_1715.jpeg",
+  "IMG_1716.jpeg"
+];
+
+let currentPhoto = 0;
+
+function changePhoto(direction) {
+  currentPhoto += direction;
+
+  if (currentPhoto >= productPhotos.length) {
+    currentPhoto = 0;
+  }
+
+  if (currentPhoto < 0) {
+    currentPhoto = productPhotos.length - 1;
+  }
+
+  document.getElementById("detailImage").src =
+    productPhotos[currentPhoto];
 }
