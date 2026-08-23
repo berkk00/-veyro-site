@@ -1,79 +1,77 @@
-alert("SCRIPT ÇALIŞIYOR");let cart = [];
+alert("SCRIPT ÇALIŞIYOR");
+
+let cart = [];
 let selectedProduct = {
   name: "",
   price: 0,
   photos: []
 };
 let currentPhoto = 0;
-// SEPET
+
+// --- SEPET İŞLEMLERİ ---
+
 function openCart() {
   document.getElementById("cartPanel").classList.add("open");
 }
+
 function closeCart() {
   document.getElementById("cartPanel").classList.remove("open");
 }
+
 function addToCart(name, price, sizeId) {
   const size = document.getElementById(sizeId).value;
   if (size === "") {
     alert("Lütfen beden seç.");
     return;
   }
-  cart.push({
-    name: name,
-    price: price,
-    size: size,
-    quantity: 1
-  });
+
+  // Ürün sepette var mı kontrol et (Beden dahil)
+  const existingItem = cart.find(item => item.name === name && item.size === size);
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      name: name,
+      price: price,
+      size: size,
+      quantity: 1
+    });
+  }
+
   updateCart();
   openCart();
 }
+
 function updateCart() {
   let count = 0;
   let total = 0;
-  const cartItems =
-    document.getElementById("cartItems");
+  const cartItems = document.getElementById("cartItems");
   cartItems.innerHTML = "";
+
   cart.forEach(function(item, index) {
     count += item.quantity;
-    total +=
-      item.price *
-      item.quantity;
+    total += item.price * item.quantity;
+
     cartItems.innerHTML += `
       <div class="cart-item">
         <strong>${item.name}</strong>
         <p>Beden: ${item.size}</p>
-        <p>
-          ${item.price * item.quantity} TL
-        </p>
+        <p>${item.price * item.quantity} TL</p>
         <div class="quantity">
-          <button
-            onclick="changeQuantity(${index}, -1)"
-          >
-            −
-          </button>
-          <span>
-            ${item.quantity}
-          </span>
-          <button
-            onclick="changeQuantity(${index}, 1)"
-          >
-            +
-          </button>
+          <button onclick="changeQuantity(${index}, -1)">−</button>
+          <span>${item.quantity}</span>
+          <button onclick="changeQuantity(${index}, 1)">+</button>
         </div>
-        <button
-          class="remove"
-          onclick="removeItem(${index})"
-        >
-          Ürünü kaldır
-        </button>
+        <button class="remove" onclick="removeItem(${index})">Ürünü kaldır</button>
       </div>
     `;
   });
-  document.getElementById("cartCount").textContent =
-    count;
-  document.getElementById("cartTotal").textContent =
-    total;
+
+  document.getElementById("cartCount").textContent = count;
+  document.getElementById("cartTotal").textContent = total;
 }
+
 function changeQuantity(index, amount) {
   cart[index].quantity += amount;
   if (cart[index].quantity <= 0) {
@@ -81,71 +79,79 @@ function changeQuantity(index, amount) {
   }
   updateCart();
 }
+
 function removeItem(index) {
   cart.splice(index, 1);
   updateCart();
 }
-// ÜRÜN DETAYI
-function openProduct(name, price, image) {
-    document.getElementById("detailName").textContent = name;
-    document.getElementById("detailPrice").textContent = price;
-    document.getElementById("detailImage").src = image;
 
-    document.getElementById("productDetail").classList.add("active");
+// --- ÜRÜN DETAY İŞLEMLERİ ---
+
+// openProduct güncellendi: selectedProduct objesi dolduruluyor
+function openProduct(name, price, photos = []) {
+  selectedProduct.name = name;
+  selectedProduct.price = price;
+  // Fotoğraf dizisi gönderilmezse varsayılan tek resmi diziye alır
+  selectedProduct.photos = Array.isArray(photos) ? photos : [photos];
+  currentPhoto = 0;
+
+  document.getElementById("detailName").textContent = name;
+  document.getElementById("detailPrice").textContent = price;
+  document.getElementById("detailImage").src = selectedProduct.photos[0] || "";
+
+  document.getElementById("productDetail").classList.add("active");
 }
 
 function closeProduct() {
-    document.getElementById("productDetail").classList.remove("active");
+  document.getElementById("productDetail").classList.remove("active");
 }
+
 function changePhoto(direction) {
+  if (!selectedProduct.photos.length) return;
+
   currentPhoto += direction;
-  if (
-    currentPhoto >=
-    selectedProduct.photos.length
-  ) {
+  if (currentPhoto >= selectedProduct.photos.length) {
     currentPhoto = 0;
   }
   if (currentPhoto < 0) {
-    currentPhoto =
-      selectedProduct.photos.length - 1;
+    currentPhoto = selectedProduct.photos.length - 1;
   }
-  document.getElementById("detailImage").src =
-    selectedProduct.photos[currentPhoto];
+  document.getElementById("detailImage").src = selectedProduct.photos[currentPhoto];
 }
-function closeProduct() {
-  document
-    .getElementById("productDetail")
-    .classList
-    .remove("active");
-}
+
 function addDetailToCart() {
-  const size =
-    document.getElementById("detailSize").value;
+  const size = document.getElementById("detailSize").value;
   if (size === "") {
     alert("Lütfen beden seç.");
     return;
   }
-  cart.push({
-    name:
-      selectedProduct.name,
-    price:
-      selectedProduct.price,
-    size:
-      size,
-    quantity:
-      1
-  });
+
+  const existingItem = cart.find(
+    item => item.name === selectedProduct.name && item.size === size
+  );
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      name: selectedProduct.name,
+      price: selectedProduct.price,
+      size: size,
+      quantity: 1
+    });
+  }
+
   updateCart();
   closeProduct();
   openCart();
 }
-// SİPARİŞ
+
+// --- SİPARİŞ ---
+
 function checkout() {
   if (cart.length === 0) {
     alert("Sepetin boş.");
     return;
   }
-  alert(
-    "Sipariş sistemi şu anda demo aşamasında."
-  );
+  alert("Sipariş sistemi şu anda demo aşamasında.");
 }
