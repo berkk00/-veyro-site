@@ -86,21 +86,16 @@ function removeItem(index) {
   updateCart();
 }
 // ÜRÜN DETAYI
-function openProduct(name, price, photos) {
-  selectedProduct.name = name;
-  selectedProduct.price = price;
-  selectedProduct.photos = photos;
-  currentPhoto = 0;
-  document.getElementById("detailName").textContent =
-    name;
-  document.getElementById("detailPrice").textContent =
-    price;
-  document.getElementById("detailImage").src =
-    photos[0];
-  document
-    .getElementById("productDetail")
-    .classList
-    .add("active");
+function openProduct(name, price, image) {
+    document.getElementById("detailName").textContent = name;
+    document.getElementById("detailPrice").textContent = price;
+    document.getElementById("detailImage").src = image;
+
+    document.getElementById("productDetail").classList.add("active");
+}
+
+function closeProduct() {
+    document.getElementById("productDetail").classList.remove("active");
 }
 function changePhoto(direction) {
   currentPhoto += direction;
