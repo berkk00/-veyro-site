@@ -1,3 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+/* HEADER */
+header {
+  width: 100%;
+  height: 75px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+nav {
+  display: flex;
+  gap: 30px;
+}
+
+nav a {
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+nav a:hover {
+  opacity: .5;
+}
+
+.cart-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 11px 18px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* HERO */
+.hero {
+  min-height: 650px;
+  padding: 80px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  background: #f5f5f5;
+}
+
+.hero h1 {
+  font-size: clamp(55px, 9vw, 110px);
+  line-height: .86;
+  letter-spacing: -5px;
+  font-weight: 900;
+}
+
+.hero p {
+  margin: 30px 0;
+  font-size: 17px;
+  color: #555;
+}
+
+.shop-btn {
+  display: inline-block;
+  padding: 15px 25px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.hero-image {
+  width: 420px;
+  height: 500px;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: 5px;
+}
+
+/* ÜRÜNLER */
+.products-section {
+  padding: 90px 6%;
+}
+
+.products-section h2 {
+  font-size: 38px;
+  margin-bottom: 45px;
+  letter-spacing: -1px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.product {
+  background: #fff;
+}
+
+.product-image {
+  width: 100%;
+  height: 500px;
+  cursor: pointer;
+  overflow: hidden;
+  background: #eee;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.product-image:hover img {
+  transform: scale(1.04);
+}
+
+.product-info {
+  padding-top: 18px;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.product-info select {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.product-info button {
+  width: 100%;
+  padding: 13px;
+  background: #111;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.product-info button:hover {
+  background: #333;
+}
+
+/* ÖZELLİKLER */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.features div {
+  padding: 45px 30px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+}
+
+.features div:last-child {
+  border-right: none;
+}
+
+.features h3 {
+  margin-bottom: 10px;
+  font-size: 17px;
+}
+
+.features p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* FOOTER */
+footer {
+  padding: 60px 20px;
+  text-align: center;
+  background: #111;
+  color: #fff;
+}
+
+footer h2 {
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+}
+
+footer p {
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* SEPET */
+#cartPanel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  max-width: 90%;
+  height: 100vh;
+  background: #fff;
+  z-index: 9998;
+  padding: 30px;
+  box-shadow: -5px 0 20px rgba(0,0,0,.15);
+  transition: right .3s ease;
+  overflow-y: auto;
+}
+
+#cartPanel.active {
+  right: 0;
+}
+
+#cartPanel > button:first-child {
+  float: right;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#cartPanel h2 {
+  margin-bottom: 30px;
+}
+
+#cartPanel h3 {
+  margin: 25px 0;
+}
+
+#cartPanel button:last-child {
+  width: 100%;
+  padding: 14px;
+  background: #111;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* ÜRÜN DETAY */
 #productDetail {
   position: fixed;
   inset: 0;
@@ -6,9 +287,8 @@
   display: none;
   align-items: center;
   justify-content: center;
-  gap: 50px;
-  padding: 30px;
-  box-sizing: border-box;
+  gap: 60px;
+  padding: 50px;
   overflow-y: auto;
 }
 
@@ -16,117 +296,94 @@
   display: flex;
 }
 
-/* GALERİ ALANI VE SLIDER BUTONLARI */
-#productDetail .detail-gallery {
-  position: relative;
-  width: 400px;
+#productDetail .detail-image {
+  width: 430px;
   max-width: 90%;
 }
 
-#productDetail .detail-gallery img {
+#productDetail .detail-image img {
   width: 100%;
-  height: auto;
   display: block;
-  border-radius: 8px;
   object-fit: cover;
 }
 
-/* Fotoğraf Değiştirme Butonları (Önceki / Sonraki) */
-#productDetail .gallery-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-#productDetail .gallery-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-#productDetail .gallery-btn.prev {
-  left: 10px;
-}
-
-#productDetail .gallery-btn.next {
-  right: 10px;
-}
-
-/* ÜRÜN BİLGİ ALANI */
-#productDetail .detail-info {
-  color: #111;
-  min-width: 250px;
-}
-
-#productDetail .detail-info h2 {
-  font-size: 28px;
-  margin-bottom: 15px;
-}
-
-#productDetail .detail-info .price {
-  font-size: 22px;
-  margin-bottom: 20px;
+#productDetail #detailTitle {
+  font-size: 30px;
   font-weight: bold;
 }
 
-#productDetail .detail-info select {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-#productDetail .detail-info button.add-to-cart-btn {
-  width: 100%;
-  padding: 14px 25px;
-  background-color: #111;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-#productDetail .detail-info button.add-to-cart-btn:hover {
-  background-color: #333;
-}
-
-/* KAPATMA BUTONU */
-#productDetail .detail-close {
+#productDetail > button:first-child {
   position: absolute;
   top: 20px;
-  right: 25px;
-  font-size: 30px;
+  right: 30px;
   background: none;
   border: none;
+  font-size: 35px;
   cursor: pointer;
   color: #111;
 }
 
-/* MOBİL UYUMLULUK */
-@media (max-width: 700px) {
+/* MOBİL */
+@media (max-width: 800px) {
+
+  header {
+    padding: 0 20px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 70px 25px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 350px;
+  }
+
+  .products-section {
+    padding: 60px 20px;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .product-image {
+    height: 430px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .features div {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .features div:last-child {
+    border-bottom: none;
+  }
+
   #productDetail.active {
     flex-direction: column;
-    gap: 20px;
-    padding: 60px 20px 30px;
+    gap: 25px;
+    padding: 70px 20px 30px;
   }
 
-  #productDetail .detail-gallery {
-    width: 300px;
+  #productDetail .detail-image {
+    width: 320px;
   }
 
-  #productDetail .detail-info {
-    width: 100%;
-    max-width: 350px;
+  #productDetail #detailTitle {
+    font-size: 23px;
+    text-align: center;
   }
 }
