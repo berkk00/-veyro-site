@@ -129,13 +129,28 @@ function checkout() {
   alert(
     "Sipariş sistemi şu anda demo aşamasında."
   );
-}const productPhotos = [
+let currentPhoto = 0;
+
+const productPhotos = [
   "IMG_1713.jpeg",
   "IMG_1715.jpeg",
   "IMG_1716.jpeg"
 ];
 
-let currentPhoto = 0;
+function changePhoto(direction) {
+  currentPhoto = currentPhoto + direction;
+
+  if (currentPhoto < 0) {
+    currentPhoto = productPhotos.length - 1;
+  }
+
+  if (currentPhoto >= productPhotos.length) {
+    currentPhoto = 0;
+  }
+
+  document.getElementById("detailImage").src =
+    productPhotos[currentPhoto];
+}
 
 function changePhoto(direction) {
   currentPhoto += direction;
