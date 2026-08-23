@@ -1,4 +1,4 @@
-let cart = [];
+alert("SCRIPT ÇALIŞIYOR");let cart = [];
 let selectedProduct = {
   name: "",
   price: 0,
