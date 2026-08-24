@@ -1,4 +1,11 @@
-alert("JS ÇALIŞIYOR"); alert
+function openProduct(name, price, image) {
+  alert("ÜRÜN TIKLANDI");
+
+  console.log("ÜRÜN AÇILIYOR:", name);
+
+  // devamı aynı...
+} 
+alert
 let cart = [];
 let selectedProduct = {
   name: "",
