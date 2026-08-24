@@ -1,5 +1,4 @@
-alert("SCRIPT ÇALIŞIYOR");
-
+alert("JS ÇALIŞIYOR"); alert
 let cart = [];
 let selectedProduct = {
   name: "",
