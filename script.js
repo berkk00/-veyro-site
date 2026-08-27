@@ -696,3 +696,14 @@ console.log(
   "VEYRO SCRIPT ÇALIŞIYOR"
 );
 updateCart();
+function closeSuccessMessage() {
+
+  const successMessage =
+    document.getElementById("successMessage");
+
+  if (successMessage) {
+    successMessage.classList.remove("active");
+  }
+
+  document.body.style.overflow = "auto";
+}
