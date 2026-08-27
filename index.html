@@ -40,7 +40,7 @@
     }
 
     .hero {
-      padding: 50px 20px;
+      padding: 55px 20px;
       text-align: center;
       background: #f5f5f5;
     }
@@ -85,7 +85,9 @@
       font-weight: bold;
     }
 
-    /* ÜRÜN DETAYI */
+    /* ====================
+       ÜRÜN DETAY
+    ==================== */
 
     #productDetail {
       display: none;
@@ -108,9 +110,15 @@
       margin-bottom: 25px;
     }
 
+    .detail-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
     .close {
-      font-size: 30px;
+      font-size: 32px;
       cursor: pointer;
+      line-height: 1;
     }
 
     .detail-content {
@@ -143,6 +151,38 @@
       margin-bottom: 25px;
     }
 
+    /* BEDEN */
+
+    .size-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .sizes {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .size {
+      width: 55px;
+      height: 45px;
+      background: white;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .size:hover {
+      border-color: #111;
+    }
+
+    .size.selected {
+      background: #111;
+      color: white;
+      border-color: #111;
+    }
+
     .add-cart {
       width: 100%;
       padding: 16px;
@@ -153,13 +193,95 @@
       cursor: pointer;
     }
 
+    .add-cart:hover {
+      background: #333;
+    }
+
+    /* ====================
+       SEPET
+    ==================== */
+
+    #cartPanel {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 380px;
+      max-width: 90%;
+      height: 100%;
+      background: white;
+      z-index: 10000;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+      transition: right 0.3s ease;
+      padding: 25px;
+      overflow-y: auto;
+    }
+
+    #cartPanel.open {
+      right: 0;
+    }
+
+    .cart-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .cart-top h2 {
+      font-size: 24px;
+    }
+
+    .cart-close {
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    #cartItems {
+      margin-bottom: 25px;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .cart-item-name {
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .cart-item-info {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .cart-total {
+      font-size: 20px;
+      font-weight: bold;
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+    }
+
     @media (max-width: 700px) {
+
       .detail-content {
         grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .detail-info {
+        padding-top: 0;
       }
 
       .hero h1 {
         font-size: 32px;
+      }
+
+      #cartPanel {
+        width: 100%;
+        max-width: 100%;
+        right: -100%;
       }
     }
   </style>
@@ -167,46 +289,240 @@
 
 <body>
 
+  <!-- HEADER -->
+
   <header>
     <div class="logo">VEYRO</div>
-    <div class="cart">🛒</div>
+
+    <div class="cart" onclick="openCart()">
+      🛒
+      <span id="cartCount">0</span>
+    </div>
   </header>
+
+
+  <!-- HERO -->
 
   <section class="hero">
     <h1>YOUR STYLE</h1>
     <p>VEYRO — Tarzını keşfet.</p>
   </section>
 
+
+  <!-- ÜRÜNLER -->
+
   <section class="products">
 
-    <div class="product"
-         onclick="openProduct(
-           'VEYRO Oversize — Siyah',
-           499,
-           'IMG_1713.jpeg'
-         )">
+    <!-- SİYAH -->
 
-      <img src="IMG_1713.jpeg" alt="VEYRO Oversize Siyah">
+    <div class="product"
+      onclick="openProduct(
+        'VEYRO Oversize — Siyah',
+        499,
+        'IMG_1713.jpeg'
+      )">
+
+      <img
+        src="IMG_1713.jpeg"
+        alt="VEYRO Oversize Siyah"
+      >
 
       <h2>VEYRO Oversize — Siyah</h2>
 
-      <div class="price">499 TL</div>
+      <div class="price">
+        499 TL
+      </div>
+
     </div>
 
-    <div class="product"
-         onclick="openProduct(
-           'VEYRO Oversize — Beyaz',
-           499,
-           'IMG_1715.jpeg'
-         )">
 
-      <img src="IMG_1715.jpeg" alt="VEYRO Oversize Beyaz">
+    <!-- BEYAZ -->
+
+    <div class="product"
+      onclick="openProduct(
+        'VEYRO Oversize — Beyaz',
+        499,
+        'IMG_1715.jpeg'
+      )">
+
+      <img
+        src="IMG_1715.jpeg"
+        alt="VEYRO Oversize Beyaz"
+      >
 
       <h2>VEYRO Oversize — Beyaz</h2>
 
-      <div class="price">499 TL</div>
+      <div class="price">
+        499 TL
+      </div>
+
     </div>
 
+
+    <!-- GRİ -->
+
     <div class="product"
-         onclick="openProduct(
-           'VEYRO Oversize — Gri',
+      onclick="openProduct(
+        'VEYRO Oversize — Gri',
+        499,
+        'IMG_1716.jpeg'
+      )">
+
+      <img
+        src="IMG_1716.jpeg"
+        alt="VEYRO Oversize Gri"
+      >
+
+      <h2>VEYRO Oversize — Gri</h2>
+
+      <div class="price">
+        499 TL
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ====================
+       ÜRÜN DETAY EKRANI
+  ==================== -->
+
+  <div id="productDetail">
+
+    <div class="detail-top">
+
+      <div class="detail-title">
+        VEYRO
+      </div>
+
+      <div
+        class="close"
+        onclick="closeProduct()"
+      >
+        ×
+      </div>
+
+    </div>
+
+
+    <div class="detail-content">
+
+      <div>
+
+        <img
+          id="detailImage"
+          class="detail-image"
+          src=""
+          alt="Ürün"
+        >
+
+      </div>
+
+
+      <div class="detail-info">
+
+        <h1 id="detailName">
+          Ürün
+        </h1>
+
+        <div
+          id="detailPrice"
+          class="detail-price"
+        >
+          499 TL
+        </div>
+
+
+        <div class="size-title">
+          Beden seç
+        </div>
+
+        <div class="sizes">
+
+          <button
+            class="size"
+            onclick="selectSize(this, 'S')"
+          >
+            S
+          </button>
+
+          <button
+            class="size"
+            onclick="selectSize(this, 'M')"
+          >
+            M
+          </button>
+
+          <button
+            class="size"
+            onclick="selectSize(this, 'L')"
+          >
+            L
+          </button>
+
+          <button
+            class="size"
+            onclick="selectSize(this, 'XL')"
+          >
+            XL
+          </button>
+
+        </div>
+
+
+        <button
+          class="add-cart"
+          onclick="addToCart()"
+        >
+          SEPETE EKLE
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ====================
+       SEPET PANELİ
+  ==================== -->
+
+  <div id="cartPanel">
+
+    <div class="cart-top">
+
+      <h2>Sepetim</h2>
+
+      <div
+        class="cart-close"
+        onclick="closeCart()"
+      >
+        ×
+      </div>
+
+    </div>
+
+
+    <div id="cartItems">
+      Sepet boş.
+    </div>
+
+
+    <div
+      id="cartTotal"
+      class="cart-total"
+    >
+      Toplam: 0 TL
+    </div>
+
+  </div>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script src="script.js"></script>
+
+</body>
+</html>
