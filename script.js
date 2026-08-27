@@ -442,3 +442,118 @@ function updateCart() {
 console.log("VEYRO SCRIPT ÇALIŞIYOR");
 
 updateCart();
+// ====================
+// ÜRÜN FOTOĞRAF GALERİSİ
+// ====================
+
+let productPhotos = [];
+let currentPhoto = 0;
+
+
+// GALERİYİ HAZIRLA
+
+function setProductPhotos(photos) {
+
+  productPhotos = photos;
+  currentPhoto = 0;
+
+  showPhoto();
+  createThumbnails();
+}
+
+
+// FOTOĞRAFI GÖSTER
+
+function showPhoto() {
+
+  const detailImage =
+    document.getElementById("detailImage");
+
+  if (!detailImage || productPhotos.length === 0) {
+    return;
+  }
+
+  detailImage.src =
+    productPhotos[currentPhoto];
+}
+
+
+// KÜÇÜK FOTOĞRAFLARI OLUŞTUR
+
+function createThumbnails() {
+
+  const container =
+    document.getElementById("thumbnailContainer");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+  productPhotos.forEach(function(photo, index) {
+
+    const thumbnail =
+      document.createElement("img");
+
+    thumbnail.src = photo;
+
+    thumbnail.className =
+      "thumbnail";
+
+    if (index === currentPhoto) {
+      thumbnail.classList.add("active");
+    }
+
+    thumbnail.onclick = function() {
+
+      currentPhoto = index;
+
+      showPhoto();
+      createThumbnails();
+
+    };
+
+    container.appendChild(thumbnail);
+
+  });
+}
+
+
+// ÖNCEKİ FOTOĞRAF
+
+function previousPhoto() {
+
+  if (productPhotos.length === 0) {
+    return;
+  }
+
+  currentPhoto--;
+
+  if (currentPhoto < 0) {
+    currentPhoto =
+      productPhotos.length - 1;
+  }
+
+  showPhoto();
+  createThumbnails();
+}
+
+
+// SONRAKİ FOTOĞRAF
+
+function nextPhoto() {
+
+  if (productPhotos.length === 0) {
+    return;
+  }
+
+  currentPhoto++;
+
+  if (currentPhoto >= productPhotos.length) {
+    currentPhoto = 0;
+  }
+
+  showPhoto();
+  createThumbnails();
+}
