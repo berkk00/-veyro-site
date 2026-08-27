@@ -35,6 +35,14 @@ function closeCart() {
 
 
 // ====================
+// GALERİ
+// ====================
+
+let productPhotos = [];
+let currentPhoto = 0;
+
+
+// ====================
 // ÜRÜN DETAYI
 // ====================
 
@@ -64,14 +72,11 @@ function openProduct(name, price, image) {
   }
 
   if (detailPrice) {
-    detailPrice.textContent =
-      price + " TL";
+    detailPrice.textContent = price + " TL";
   }
 
 
-  // ====================
-  // SİYAH ÜRÜN GALERİSİ
-  // ====================
+  // SİYAH TİŞÖRT = 3 FOTOĞRAF
 
   if (name.includes("Siyah")) {
 
@@ -83,7 +88,7 @@ function openProduct(name, price, image) {
 
   } else {
 
-    // Beyaz ve gri şimdilik tek fotoğraf
+    // Diğer ürünler şimdilik tek fotoğraf
 
     setProductPhotos([
       image
@@ -92,7 +97,7 @@ function openProduct(name, price, image) {
   }
 
 
-  // BEDENLERİ TEMİZLE
+  // BEDEN SEÇİMİNİ TEMİZLE
 
   document.querySelectorAll(".size").forEach(function(button) {
     button.classList.remove("selected");
@@ -108,44 +113,9 @@ function openProduct(name, price, image) {
   document.body.style.overflow = "hidden";
 }
 
-  selectedProduct = {
-    name: name,
-    price: price,
-    image: image,
-    size: ""
-  };
-
-  const detailName = document.getElementById("detailName");
-  const detailPrice = document.getElementById("detailPrice");
-  const detailImage = document.getElementById("detailImage");
-  const productDetail = document.getElementById("productDetail");
-
-  if (detailName) {
-    detailName.textContent = name;
-  }
-
-  if (detailPrice) {
-    detailPrice.textContent = price + " TL";
-  }
-
-  if (detailImage) {
-    detailImage.src = image;
-  }
-
-  document.querySelectorAll(".size").forEach(function(button) {
-    button.classList.remove("selected");
-  });
-
-  if (productDetail) {
-    productDetail.classList.add("active");
-  }
-
-  document.body.style.overflow = "hidden";
-}
-
 
 // ====================
-// ÜRÜN DETAYI KAPAT
+// ÜRÜN DETAYINI KAPAT
 // ====================
 
 function closeProduct() {
@@ -158,6 +128,160 @@ function closeProduct() {
   }
 
   document.body.style.overflow = "auto";
+}
+
+
+// ====================
+// GALERİYİ HAZIRLA
+// ====================
+
+function setProductPhotos(photos) {
+
+  productPhotos = photos;
+  currentPhoto = 0;
+
+  showPhoto();
+  createThumbnails();
+
+
+  // OKLARI GÖSTER / GİZLE
+
+  const arrows =
+    document.querySelectorAll(".gallery-arrow");
+
+  arrows.forEach(function(arrow) {
+
+    if (productPhotos.length <= 1) {
+
+      arrow.style.display = "none";
+
+    } else {
+
+      arrow.style.display = "flex";
+
+    }
+
+  });
+}
+
+
+// ====================
+// ANA FOTOĞRAFI GÖSTER
+// ====================
+
+function showPhoto() {
+
+  const detailImage =
+    document.getElementById("detailImage");
+
+  if (!detailImage) {
+    return;
+  }
+
+  if (productPhotos.length === 0) {
+    return;
+  }
+
+  detailImage.src =
+    productPhotos[currentPhoto];
+}
+
+
+// ====================
+// KÜÇÜK FOTOĞRAFLAR
+// ====================
+
+function createThumbnails() {
+
+  const container =
+    document.getElementById("thumbnailContainer");
+
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = "";
+
+
+  productPhotos.forEach(function(photo, index) {
+
+    const thumbnail =
+      document.createElement("img");
+
+    thumbnail.src = photo;
+
+    thumbnail.alt = "Ürün fotoğrafı";
+
+    thumbnail.className =
+      "thumbnail";
+
+
+    if (index === currentPhoto) {
+      thumbnail.classList.add("active");
+    }
+
+
+    thumbnail.onclick = function() {
+
+      currentPhoto = index;
+
+      showPhoto();
+
+      createThumbnails();
+
+    };
+
+
+    container.appendChild(thumbnail);
+
+  });
+}
+
+
+// ====================
+// ÖNCEKİ FOTOĞRAF
+// ====================
+
+function previousPhoto() {
+
+  if (productPhotos.length <= 1) {
+    return;
+  }
+
+  currentPhoto--;
+
+  if (currentPhoto < 0) {
+
+    currentPhoto =
+      productPhotos.length - 1;
+
+  }
+
+  showPhoto();
+  createThumbnails();
+}
+
+
+// ====================
+// SONRAKİ FOTOĞRAF
+// ====================
+
+function nextPhoto() {
+
+  if (productPhotos.length <= 1) {
+    return;
+  }
+
+  currentPhoto++;
+
+  if (currentPhoto >= productPhotos.length) {
+
+    currentPhoto = 0;
+
+  }
+
+  showPhoto();
+  createThumbnails();
 }
 
 
@@ -193,14 +317,16 @@ function addToCart() {
     return;
   }
 
-  const existingItem = cart.find(function(item) {
 
-    return (
-      item.name === selectedProduct.name &&
-      item.size === selectedProduct.size
-    );
+  const existingItem =
+    cart.find(function(item) {
 
-  });
+      return (
+        item.name === selectedProduct.name &&
+        item.size === selectedProduct.size
+      );
+
+    });
 
 
   if (existingItem) {
@@ -240,10 +366,11 @@ function addToCart() {
 
 function increaseQuantity(index) {
 
-  if (!cart[index]) return;
+  if (!cart[index]) {
+    return;
+  }
 
-  cart[index].quantity =
-    Number(cart[index].quantity) + 1;
+  cart[index].quantity++;
 
   updateCart();
 }
@@ -255,10 +382,12 @@ function increaseQuantity(index) {
 
 function decreaseQuantity(index) {
 
-  if (!cart[index]) return;
+  if (!cart[index]) {
+    return;
+  }
 
-  cart[index].quantity =
-    Number(cart[index].quantity) - 1;
+  cart[index].quantity--;
+
 
   if (cart[index].quantity <= 0) {
 
@@ -266,17 +395,20 @@ function decreaseQuantity(index) {
 
   }
 
+
   updateCart();
 }
 
 
 // ====================
-// SEPETTEN SİL
+// ÜRÜNÜ SİL
 // ====================
 
 function removeFromCart(index) {
 
-  if (!cart[index]) return;
+  if (!cart[index]) {
+    return;
+  }
 
   cart.splice(index, 1);
 
@@ -322,6 +454,7 @@ function updateCart() {
     cartTotal.textContent =
       "Toplam: 0 TL";
 
+
     if (cartCount) {
       cartCount.textContent = "0";
     }
@@ -342,6 +475,7 @@ function updateCart() {
     const itemTotal =
       item.price * item.quantity;
 
+
     total += itemTotal;
 
     count += item.quantity;
@@ -349,6 +483,7 @@ function updateCart() {
 
     const itemElement =
       document.createElement("div");
+
 
     itemElement.className =
       "cart-item";
@@ -362,8 +497,6 @@ function updateCart() {
         align-items:flex-start;
       ">
 
-        <!-- ÜRÜN FOTOĞRAFI -->
-
         <img
           src="${item.image}"
           alt="${item.name}"
@@ -373,11 +506,9 @@ function updateCart() {
             object-fit:cover;
             background:#f5f5f5;
             flex-shrink:0;
+            border-radius:8px;
           "
         >
-
-
-        <!-- ÜRÜN BİLGİLERİ -->
 
         <div style="
           flex:1;
@@ -396,8 +527,6 @@ function updateCart() {
             ${item.price} TL
           </div>
 
-
-          <!-- ADET -->
 
           <div style="
             display:flex;
@@ -454,8 +583,6 @@ function updateCart() {
       </div>
 
 
-      <!-- ARA TOPLAM -->
-
       <div style="
         margin-top:10px;
         font-weight:bold;
@@ -463,8 +590,6 @@ function updateCart() {
         Ara toplam: ${itemTotal} TL
       </div>
 
-
-      <!-- ÜRÜNÜ KALDIR -->
 
       <button
         type="button"
@@ -488,18 +613,13 @@ function updateCart() {
   });
 
 
-  // TOPLAM
-
   cartTotal.textContent =
     "Toplam: " + total + " TL";
 
 
-  // SEPET SAYISI
-
   if (cartCount) {
     cartCount.textContent = count;
   }
-
 }
 
 
@@ -510,138 +630,3 @@ function updateCart() {
 console.log("VEYRO SCRIPT ÇALIŞIYOR");
 
 updateCart();
-// ====================
-// ÜRÜN FOTOĞRAF GALERİSİ
-// ====================
-
-let productPhotos = [];
-let currentPhoto = 0;
-
-
-// GALERİYİ HAZIRLA
-
-function setProductPhotos(photos) {
-
-  productPhotos = photos;
-  currentPhoto = 0;
-
-  showPhoto();
-  createThumbnails();
-
-  const arrows =
-    document.querySelectorAll(".gallery-arrow");
-
-  arrows.forEach(function(arrow) {
-
-    if (productPhotos.length <= 1) {
-      arrow.style.display = "none";
-    } else {
-      arrow.style.display = "flex";
-    }
-
-  });
-}
-
-  productPhotos = photos;
-  currentPhoto = 0;
-
-  showPhoto();
-  createThumbnails();
-}
-
-
-// FOTOĞRAFI GÖSTER
-
-function showPhoto() {
-
-  const detailImage =
-    document.getElementById("detailImage");
-
-  if (!detailImage || productPhotos.length === 0) {
-    return;
-  }
-
-  detailImage.src =
-    productPhotos[currentPhoto];
-}
-
-
-// KÜÇÜK FOTOĞRAFLARI OLUŞTUR
-
-function createThumbnails() {
-
-  const container =
-    document.getElementById("thumbnailContainer");
-
-  if (!container) {
-    return;
-  }
-
-  container.innerHTML = "";
-
-  productPhotos.forEach(function(photo, index) {
-
-    const thumbnail =
-      document.createElement("img");
-
-    thumbnail.src = photo;
-
-    thumbnail.className =
-      "thumbnail";
-
-    if (index === currentPhoto) {
-      thumbnail.classList.add("active");
-    }
-
-    thumbnail.onclick = function() {
-
-      currentPhoto = index;
-
-      showPhoto();
-      createThumbnails();
-
-    };
-
-    container.appendChild(thumbnail);
-
-  });
-}
-
-
-// ÖNCEKİ FOTOĞRAF
-
-function previousPhoto() {
-
-  if (productPhotos.length === 0) {
-    return;
-  }
-
-  currentPhoto--;
-
-  if (currentPhoto < 0) {
-    currentPhoto =
-      productPhotos.length - 1;
-  }
-
-  showPhoto();
-  createThumbnails();
-}
-
-
-// SONRAKİ FOTOĞRAF
-
-function nextPhoto() {
-
-  if (productPhotos.length === 0) {
-    return;
-  }
-
-  currentPhoto++;
-
-  if (currentPhoto >= productPhotos.length) {
-    currentPhoto = 0;
-  }
-
-  showPhoto();
-  createThumbnails();
-}
