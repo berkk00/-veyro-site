@@ -40,6 +40,74 @@ function closeCart() {
 
 function openProduct(name, price, image) {
 
+  console.log("ÜRÜN AÇILIYOR:", name);
+
+  selectedProduct = {
+    name: name,
+    price: price,
+    image: image,
+    size: ""
+  };
+
+  const detailName =
+    document.getElementById("detailName");
+
+  const detailPrice =
+    document.getElementById("detailPrice");
+
+  const productDetail =
+    document.getElementById("productDetail");
+
+
+  if (detailName) {
+    detailName.textContent = name;
+  }
+
+  if (detailPrice) {
+    detailPrice.textContent =
+      price + " TL";
+  }
+
+
+  // ====================
+  // SİYAH ÜRÜN GALERİSİ
+  // ====================
+
+  if (name.includes("Siyah")) {
+
+    setProductPhotos([
+      "IMG_1713.jpeg",
+      "IMG_1715.jpeg",
+      "IMG_1716.jpeg"
+    ]);
+
+  } else {
+
+    // Beyaz ve gri şimdilik tek fotoğraf
+
+    setProductPhotos([
+      image
+    ]);
+
+  }
+
+
+  // BEDENLERİ TEMİZLE
+
+  document.querySelectorAll(".size").forEach(function(button) {
+    button.classList.remove("selected");
+  });
+
+
+  // DETAYI AÇ
+
+  if (productDetail) {
+    productDetail.classList.add("active");
+  }
+
+  document.body.style.overflow = "hidden";
+}
+
   selectedProduct = {
     name: name,
     price: price,
