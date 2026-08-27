@@ -1,382 +1,344 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VEYRO — Your Style</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    } <div id="successMessage">
-  <div class="success-box">
-    <div class="success-icon">✓</div>
-
-    <h2>Siparişiniz Alındı!</h2>
-
-    <p>
-      Sipariş bilgileriniz başarıyla bize ulaştı.
-    </p>
-
-    <p id="successTotal"></p>
-
-    <button
-      type="button"
-      onclick="closeSuccessMessage()"
-    >
-      ALIŞVERİŞE DEVAM ET
-    </button>
-  </div>
-</div>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff;
-      color: #111;
-    }
-    /* HEADER */
-    header {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-      border-bottom: 1px solid #eee;
-    }
-    .logo {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-    .cart {
-      font-size: 24px;
-      cursor: pointer;
-      user-select: none;
-    }
-    /* HERO */
-    .hero {
-      padding: 55px 20px;
-      text-align: center;
-      background: #f5f5f5;
-    }
-    .hero h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      color: #666;
-    }
-    /* ÜRÜNLER */
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-      padding: 35px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-    .product {
-      cursor: pointer;
-    }
-    .product img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-      background: #eee;
-    }
-    .product h2 {
-      font-size: 18px;
-      margin-top: 12px;
-    }
-    .price {
-      margin-top: 6px;
-      font-weight: bold;
-    }
-    /* ÜRÜN DETAY */
-    #productDetail {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: white;
-      z-index: 9999;
-      overflow-y: auto;
-      padding: 25px;
-    }
-    #productDetail.active {
-      display: block;
-    }
-    .detail-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-    .detail-title {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .close {
-      font-size: 32px;
-      cursor: pointer;
-    }
-    .detail-content {
-      max-width: 1000px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-    /* GALERİ */
-    .gallery {
-      position: relative;
-      width: 100%;
-    }
-    .gallery .detail-image {
-      width: 100%;
-      height: 600px;
-      object-fit: contain;
-      display: block;
-      background: #f5f5f5;
-    }
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.75);
-      color: white;
-      font-size: 32px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .gallery-arrow.left {
-      left: 15px;
-    }
-    .gallery-arrow.right {
-      right: 15px;
-    }
-    .thumbnails {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      overflow-x: auto;
-    }
-    .thumbnail {
-      width: 75px;
-      height: 75px;
-      object-fit: cover;
-      cursor: pointer;
-      border: 2px solid transparent;
-      flex-shrink: 0;
-    }
-    .thumbnail.active {
-      border-color: #111;
-    }
-    /* ÜRÜN BİLGİ */
-    .detail-info {
-      padding-top: 20px;
-    }
-    .detail-info h1 {
-      font-size: 32px;
-      margin-bottom: 15px;
-    }
-    .detail-price {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 25px;
-    }
-    /* BEDEN */
-    .size-title {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .sizes {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 25px;
-    }
-    .size {
-      width: 55px;
-      height: 45px;
-      background: white;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .size.selected {
-      background: #111;
-      color: white;
-      border-color: #111;
-    }
-    /* SEPETE EKLE */
-    .add-cart {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      background: #111;
-      color: white;
-      font-size: 17px;
-      cursor: pointer;
-    }
-    /* SEPET */
-    #cartPanel {
-      position: fixed;
-      top: 0;
-      right: -420px;
-      width: 420px;
-      max-width: 92%;
-      height: 100%;
-      background: white;
-      z-index: 10000;
-      box-shadow: -10px 0 35px rgba(0,0,0,0.15);
-      transition: right 0.3s ease;
-      padding: 25px;
-      overflow-y: auto;
-    }
-    #cartPanel.open {
-      right: 0;
-    }
-    .cart-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #eee;
-    }
-    .cart-top h2 {
-      font-size: 26px;
-    }
-    .cart-close {
-      width: 38px;
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: #f5f5f5;
-      font-size: 25px;
-      cursor: pointer;
-    }
-    #cartItems {
-      margin-bottom: 25px;
-    }
-    .cart-item {
-      padding: 20px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .cart-total {
-      position: sticky;
-      bottom: 0;
-      margin-top: 20px;
-      padding: 20px 0;
-      background: white;
-      border-top: 2px solid #111;
-      font-size: 21px;
-      font-weight: bold;
-    }
-    /* SİPARİŞ FORMU */
-    #orderForm {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 20000;
-      background: rgba(0,0,0,0.45);
-      padding: 20px;
-      overflow-y: auto;
-    }
-    #orderForm.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .order-box {
-      width: 100%;
-      max-width: 520px;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-    .order-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .order-header h2 {
-      font-size: 24px;
-    }
-    .order-header button {
-      width: 38px;
-      height: 38px;
-      border: none;
-      border-radius: 50%;
-      background: #f5f5f5;
-      font-size: 25px;
-      cursor: pointer;
-    }
-    #orderSummary {
-      background: #f5f5f5;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    #orderFormElement {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    #orderFormElement input,
-    #orderFormElement textarea {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ddd;
-      border-radius: 7px;
-      font-size: 15px;
-      font-family: Arial, sans-serif;
-    }
-    .send-order {
-      width: 100%;
-      padding: 16px;
-      border: none;
-      background: #111;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 7px;
-    }
-    .send-order:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-    /* MOBİL */
-    @media (max-width: 700px) {
-      .detail-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      .gallery .detail-image {
-        height: 400px;
-      }
-      #cartPanel {
-        width: 100%;
-        max-width: 100%;
-        right: -100%;
-      }
-      .hero h1 {
-        font-size: 32px;
-      }
-    }#successMessage {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEYRO — Your Style</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #111;
+}
+header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  border-bottom: 1px solid #eee;
+}
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.cart {
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+.hero {
+  padding: 55px 20px;
+  text-align: center;
+  background: #f5f5f5;
+}
+.hero h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.hero p {
+  color: #666;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 35px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+.product {
+  cursor: pointer;
+}
+.product img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background: #eee;
+}
+.product h2 {
+  font-size: 18px;
+  margin-top: 12px;
+}
+.price {
+  margin-top: 6px;
+  font-weight: bold;
+}
+/* =========================
+   ÜRÜN DETAY
+========================= */
+#productDetail {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 25px;
+}
+#productDetail.active {
+  display: block;
+}
+.detail-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.detail-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.close {
+  font-size: 32px;
+  cursor: pointer;
+}
+.detail-content {
+  max-width: 1000px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.gallery {
+  position: relative;
+  width: 100%;
+}
+.gallery .detail-image {
+  width: 100%;
+  height: 600px;
+  object-fit: contain;
+  display: block;
+  background: #f5f5f5;
+}
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-arrow.left {
+  left: 15px;
+}
+.gallery-arrow.right {
+  right: 15px;
+}
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  overflow-x: auto;
+}
+.thumbnail {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+.thumbnail.active {
+  border-color: #111;
+}
+.detail-info {
+  padding-top: 20px;
+}
+.detail-info h1 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+.detail-price {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+.size-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.sizes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.size {
+  width: 55px;
+  height: 45px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: bold;
+}
+.size.selected {
+  background: #111;
+  color: white;
+  border-color: #111;
+}
+.add-cart {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: #111;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+/* =========================
+   SEPET
+========================= */
+#cartPanel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 420px;
+  max-width: 92%;
+  height: 100%;
+  background: white;
+  z-index: 10000;
+  box-shadow: -10px 0 35px rgba(0,0,0,0.15);
+  transition: right 0.3s ease;
+  padding: 25px;
+  overflow-y: auto;
+}
+#cartPanel.open {
+  right: 0;
+}
+.cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.cart-top h2 {
+  font-size: 26px;
+}
+.cart-close {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f5f5f5;
+  font-size: 25px;
+  cursor: pointer;
+}
+#cartItems {
+  margin-bottom: 25px;
+}
+.cart-item {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+.cart-total {
+  position: sticky;
+  bottom: 0;
+  margin-top: 20px;
+  padding: 20px 0;
+  background: white;
+  border-top: 2px solid #111;
+  font-size: 21px;
+  font-weight: bold;
+}
+/* =========================
+   SİPARİŞ FORMU
+========================= */
+#orderForm {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  background: rgba(0,0,0,0.45);
+  padding: 20px;
+  overflow-y: auto;
+}
+#orderForm.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.order-box {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.order-header h2 {
+  font-size: 24px;
+}
+.order-header button {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: #f5f5f5;
+  font-size: 25px;
+  cursor: pointer;
+}
+#orderSummary {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+#orderFormElement {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#orderFormElement input,
+#orderFormElement textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 15px;
+  font-family: Arial, sans-serif;
+}
+.send-order {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: #111;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 7px;
+}
+/* =========================
+   BAŞARI EKRANI
+========================= */
+#successMessage {
   display: none;
   position: fixed;
   inset: 0;
@@ -386,11 +348,9 @@
   justify-content: center;
   padding: 20px;
 }
-
 #successMessage.active {
   display: flex;
 }
-
 .success-box {
   width: 100%;
   max-width: 430px;
@@ -399,7 +359,6 @@
   padding: 35px 25px;
   text-align: center;
 }
-
 .success-icon {
   width: 65px;
   height: 65px;
@@ -413,24 +372,20 @@
   font-size: 35px;
   font-weight: bold;
 }
-
 .success-box h2 {
   font-size: 26px;
   margin-bottom: 12px;
 }
-
 .success-box p {
   color: #666;
   line-height: 1.5;
   margin-bottom: 10px;
 }
-
 #successTotal {
   color: #111;
   font-weight: bold;
   font-size: 18px;
 }
-
 .success-box button {
   width: 100%;
   margin-top: 20px;
@@ -443,285 +398,318 @@
   font-weight: bold;
   cursor: pointer;
 }
-  </style>
+/* =========================
+   MOBİL
+========================= */
+@media (max-width: 700px) {
+  .detail-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .gallery .detail-image {
+    height: 400px;
+  }
+  #cartPanel {
+    width: 100%;
+    max-width: 100%;
+    right: -100%;
+  }
+  .hero h1 {
+    font-size: 32px;
+  }
+}
+</style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo">
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    VEYRO
+  </div>
+  <div
+    class="cart"
+    onclick="openCart()"
+  >
+    🛒
+    <span id="cartCount">0</span>
+  </div>
+</header>
+<!-- HERO -->
+<section class="hero">
+  <h1>YOUR STYLE</h1>
+  <p>
+    VEYRO — Tarzını keşfet.
+  </p>
+</section>
+<!-- ÜRÜNLER -->
+<section class="products">
+  <div
+    class="product"
+    onclick="openProduct(
+      'VEYRO Oversize — Siyah',
+      499,
+      'IMG_1713.jpeg'
+    )"
+  >
+    <img
+      src="IMG_1713.jpeg"
+      alt="VEYRO Oversize Siyah"
+    >
+    <h2>
+      VEYRO Oversize — Siyah
+    </h2>
+    <div class="price">
+      499 TL
+    </div>
+  </div>
+  <div
+    class="product"
+    onclick="openProduct(
+      'VEYRO Oversize — Beyaz',
+      499,
+      'IMG_1715.jpeg'
+    )"
+  >
+    <img
+      src="IMG_1715.jpeg"
+      alt="VEYRO Oversize Beyaz"
+    >
+    <h2>
+      VEYRO Oversize — Beyaz
+    </h2>
+    <div class="price">
+      499 TL
+    </div>
+  </div>
+  <div
+    class="product"
+    onclick="openProduct(
+      'VEYRO Oversize — Gri',
+      499,
+      'IMG_1716.jpeg'
+    )"
+  >
+    <img
+      src="IMG_1716.jpeg"
+      alt="VEYRO Oversize Gri"
+    >
+    <h2>
+      VEYRO Oversize — Gri
+    </h2>
+    <div class="price">
+      499 TL
+    </div>
+  </div>
+</section>
+<!-- ÜRÜN DETAY -->
+<div id="productDetail">
+  <div class="detail-top">
+    <div class="detail-title">
       VEYRO
     </div>
     <div
-      class="cart"
-      onclick="openCart()"
+      class="close"
+      onclick="closeProduct()"
     >
-      🛒
-      <span id="cartCount">0</span>
+      ×
     </div>
-  </header>
-  <!-- HERO -->
-  <section class="hero">
-    <h1>YOUR STYLE</h1>
+  </div>
+  <div class="detail-content">
+    <div>
+      <div class="gallery">
+        <button
+          type="button"
+          class="gallery-arrow left"
+          onclick="previousPhoto()"
+        >
+          ‹
+        </button>
+        <img
+          id="detailImage"
+          class="detail-image"
+          src=""
+          alt="Ürün"
+        >
+        <button
+          type="button"
+          class="gallery-arrow right"
+          onclick="nextPhoto()"
+        >
+          ›
+        </button>
+      </div>
+      <div
+        id="thumbnailContainer"
+        class="thumbnails"
+      ></div>
+    </div>
+    <div class="detail-info">
+      <h1 id="detailName">
+        Ürün
+      </h1>
+      <div
+        id="detailPrice"
+        class="detail-price"
+      >
+        499 TL
+      </div>
+      <div class="size-title">
+        Beden seç
+      </div>
+      <div class="sizes">
+        <button
+          type="button"
+          class="size"
+          onclick="selectSize(this,'S')"
+        >
+          S
+        </button>
+        <button
+          type="button"
+          class="size"
+          onclick="selectSize(this,'M')"
+        >
+          M
+        </button>
+        <button
+          type="button"
+          class="size"
+          onclick="selectSize(this,'L')"
+        >
+          L
+        </button>
+        <button
+          type="button"
+          class="size"
+          onclick="selectSize(this,'XL')"
+        >
+          XL
+        </button>
+      </div>
+      <button
+        type="button"
+        class="add-cart"
+        onclick="addToCart()"
+      >
+        SEPETE EKLE
+      </button>
+    </div>
+  </div>
+</div>
+<!-- SEPET -->
+<div id="cartPanel">
+  <div class="cart-top">
+    <h2>Sepetim</h2>
+    <div
+      class="cart-close"
+      onclick="closeCart()"
+    >
+      ×
+    </div>
+  </div>
+  <div id="cartItems">
+    Sepet boş.
+  </div>
+  <div
+    id="cartTotal"
+    class="cart-total"
+  >
+    Toplam: 0 TL
+  </div>
+</div>
+<!-- SİPARİŞ FORMU -->
+<div id="orderForm">
+  <div class="order-box">
+    <div class="order-header">
+      <h2>
+        Sipariş Bilgileri
+      </h2>
+      <button
+        type="button"
+        onclick="closeOrderForm()"
+      >
+        ×
+      </button>
+    </div>
+    <div id="orderSummary">
+      Sipariş özeti
+    </div>
+    <!-- ÖNEMLİ:
+         action YOK.
+         Form JavaScript ile Formspree'ye gönderiliyor.
+    -->
+    <form
+      id="orderFormElement"
+      onsubmit="submitOrder(event); return false;"
+    >
+      <input
+        id="customerName"
+        name="Ad Soyad"
+        type="text"
+        placeholder="Ad Soyad"
+        required
+      >
+      <input
+        id="customerPhone"
+        name="Telefon"
+        type="tel"
+        placeholder="Telefon"
+        required
+      >
+      <input
+        id="customerCity"
+        name="İl"
+        type="text"
+        placeholder="İl"
+        required
+      >
+      <input
+        id="customerDistrict"
+        name="İlçe"
+        type="text"
+        placeholder="İlçe"
+        required
+      >
+      <textarea
+        id="customerAddress"
+        name="Adres"
+        placeholder="Açık adres"
+        rows="4"
+        required
+      ></textarea>
+      <button
+        type="submit"
+        class="send-order"
+      >
+        SİPARİŞİ GÖNDER
+      </button>
+    </form>
+  </div>
+</div>
+<!-- BAŞARI EKRANI -->
+<div id="successMessage">
+  <div class="success-box">
+    <div class="success-icon">
+      ✓
+    </div>
+    <h2>
+      Siparişiniz Alındı!
+    </h2>
     <p>
-      VEYRO — Tarzını keşfet.
+      Sipariş bilgileriniz başarıyla bize ulaştı.
     </p>
-  </section>
-  <!-- ÜRÜNLER -->
-  <section class="products">
-    <div
-      class="product"
-      onclick="openProduct(
-        'VEYRO Oversize — Siyah',
-        499,
-        'IMG_1713.jpeg'
-      )"
+    <p id="successTotal">
+      Sipariş toplamı: 0 TL
+    </p>
+    <button
+      type="button"
+      onclick="closeSuccessMessage()"
     >
-      <img
-        src="IMG_1713.jpeg"
-        alt="VEYRO Oversize Siyah"
-      >
-      <h2>
-        VEYRO Oversize — Siyah
-      </h2>
-      <div class="price">
-        499 TL
-      </div>
-    </div>
-    <div
-      class="product"
-      onclick="openProduct(
-        'VEYRO Oversize — Beyaz',
-        499,
-        'IMG_1715.jpeg'
-      )"
-    >
-      <img
-        src="IMG_1715.jpeg"
-        alt="VEYRO Oversize Beyaz"
-      >
-      <h2>
-        VEYRO Oversize — Beyaz
-      </h2>
-      <div class="price">
-        499 TL
-      </div>
-    </div>
-    <div
-      class="product"
-      onclick="openProduct(
-        'VEYRO Oversize — Gri',
-        499,
-        'IMG_1716.jpeg'
-      )"
-    >
-      <img
-        src="IMG_1716.jpeg"
-        alt="VEYRO Oversize Gri"
-      >
-      <h2>
-        VEYRO Oversize — Gri
-      </h2>
-      <div class="price">
-        499 TL
-      </div>
-    </div>
-  </section>
-  <!-- ÜRÜN DETAY -->
-  <div id="productDetail">
-    <div class="detail-top">
-      <div class="detail-title">
-        VEYRO
-      </div>
-      <div
-        class="close"
-        onclick="closeProduct()"
-      >
-        ×
-      </div>
-    </div>
-    <div class="detail-content">
-      <div>
-        <div class="gallery">
-          <button
-            type="button"
-            class="gallery-arrow left"
-            onclick="previousPhoto()"
-          >
-            ‹
-          </button>
-          <img
-            id="detailImage"
-            class="detail-image"
-            src=""
-            alt="Ürün"
-          >
-          <button
-            type="button"
-            class="gallery-arrow right"
-            onclick="nextPhoto()"
-          >
-            ›
-          </button>
-        </div>
-        <div
-          id="thumbnailContainer"
-          class="thumbnails"
-        ></div>
-      </div>
-      <div class="detail-info">
-        <h1 id="detailName">
-          Ürün
-        </h1>
-        <div
-          id="detailPrice"
-          class="detail-price"
-        >
-          499 TL
-        </div>
-        <div class="size-title">
-          Beden seç
-        </div>
-        <div class="sizes">
-          <button
-            type="button"
-            class="size"
-            onclick="selectSize(this,'S')"
-          >
-            S
-          </button>
-          <button
-            type="button"
-            class="size"
-            onclick="selectSize(this,'M')"
-          >
-            M
-          </button>
-          <button
-            type="button"
-            class="size"
-            onclick="selectSize(this,'L')"
-          >
-            L
-          </button>
-          <button
-            type="button"
-            class="size"
-            onclick="selectSize(this,'XL')"
-          >
-            XL
-          </button>
-        </div>
-        <button
-          type="button"
-          class="add-cart"
-          onclick="addToCart()"
-        >
-          SEPETE EKLE
-        </button>
-      </div>
-    </div>
+      ALIŞVERİŞE DEVAM ET
+    </button>
   </div>
-  <!-- SEPET -->
-  <div id="cartPanel">
-    <div class="cart-top">
-      <h2>Sepetim</h2>
-      <div
-        class="cart-close"
-        onclick="closeCart()"
-      >
-        ×
-      </div>
-    </div>
-    <div id="cartItems">
-      Sepet boş.
-    </div>
-    <div
-      id="cartTotal"
-      class="cart-total"
-    >
-      Toplam: 0 TL
-    </div>
-  </div>
-  <!-- SİPARİŞ FORMU -->
-  <div id="orderForm">
-    <div class="order-box">
-      <div class="order-header">
-        <h2>
-          Sipariş Bilgileri
-        </h2>
-        <button
-          type="button"
-          onclick="closeOrderForm()"
-        >
-          ×
-        </button>
-      </div>
-      <div id="orderSummary">
-        Sipariş özeti
-      </div>
-      <!-- FORMSPREE -->
-      <form
-        id="orderFormElement"
-        action="https://formspree.io/f/mqpkznnp"
-        method="POST"
-        onsubmit="submitOrder(event)"
-      >
-        <input
-          id="customerName"
-          name="Ad Soyad"
-          type="text"
-          placeholder="Ad Soyad"
-          required
-        >
-        <input
-          id="customerPhone"
-          name="Telefon"
-          type="tel"
-          placeholder="Telefon"
-          required
-        >
-        <input
-          id="customerCity"
-          name="İl"
-          type="text"
-          placeholder="İl"
-          required
-        >
-        <input
-          id="customerDistrict"
-          name="İlçe"
-          type="text"
-          placeholder="İlçe"
-          required
-        >
-        <textarea
-          id="customerAddress"
-          name="Adres"
-          placeholder="Açık adres"
-          rows="4"
-          required
-        ></textarea>
-        <!-- SİPARİŞ BİLGİLERİ -->
-        <input
-          type="hidden"
-          id="orderProducts"
-          name="Sipariş"
-        >
-        <input
-          type="hidden"
-          id="orderTotal"
-          name="Toplam"
-        >
-        <button
-          type="submit"
-          class="send-order"
-        >
-          SİPARİŞİ GÖNDER
-        </button>
-      </form>
-    </div>
-  </div>
-  <!-- JAVASCRIPT -->
-  <script src="script.js"></script>
+</div>
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
 </body>
 </html>
