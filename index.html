@@ -5,194 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>VEYRO — Your Style</title>
-/* ====================
-   SİPARİŞ FORMU
-==================== */
 
-#orderForm {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 20000;
-  background: rgba(0,0,0,0.45);
-  padding: 20px;
-  overflow-y: auto;
-}
-
-#orderForm.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.order-box {
-  width: 100%;
-  max-width: 520px;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.order-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.order-header h2 {
-  font-size: 24px;
-}
-
-.order-header button {
-  width: 38px;
-  height: 38px;
-  border: none;
-  border-radius: 50%;
-  background: #f5f5f5;
-  font-size: 25px;
-  cursor: pointer;
-}
-
-#orderFormElement {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
-}
-
-#orderFormElement input,
-#orderFormElement textarea {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  font-size: 15px;
-  font-family: Arial, sans-serif;
-  outline: none;
-}
-
-#orderFormElement input:focus,
-#orderFormElement textarea:focus {
-  border-color: #111;
-}
-
-.send-order {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  background: #111;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 7px;
-}
-
-.send-order:hover {
-  background: #333;
-}
-
-@media (max-width: 600px) {
-
-  #orderForm {
-    padding: 10px;
-  }
-
-  .order-box {
-    padding: 20px;
-  }
-
-}
   <style>
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-<!-- ====================
-     SİPARİŞ FORMU
-==================== -->
 
-<div id="orderForm">
-
-  <div class="order-box">
-
-    <div class="order-header">
-
-      <h2>Sipariş Bilgileri</h2>
-
-      <button
-        type="button"
-        onclick="closeOrderForm()"
-      >
-        ×
-      </button>
-
-    </div>
-
-
-    <div id="orderSummary"></div>
-
-
-    <form
-      id="orderFormElement"
-      onsubmit="submitOrder(event)"
-    >
-
-      <input
-        id="customerName"
-        type="text"
-        placeholder="Ad Soyad"
-        required
-      >
-
-      <input
-        id="customerPhone"
-        type="tel"
-        placeholder="Telefon"
-        required
-      >
-
-      <input
-        id="customerCity"
-        type="text"
-        placeholder="İl"
-        required
-      >
-
-      <input
-        id="customerDistrict"
-        type="text"
-        placeholder="İlçe"
-        required
-      >
-
-      <textarea
-        id="customerAddress"
-        placeholder="Açık adres"
-        rows="4"
-        required
-      ></textarea>
-
-
-      <button
-        type="submit"
-        class="send-order"
-      >
-        SİPARİŞİ GÖNDER
-      </button>
-
-    </form>
-
-  </div>
-
-</div>
-
-
-<script src="script.js"></script>
     body {
       font-family: Arial, sans-serif;
       background: #fff;
@@ -384,6 +205,7 @@
       cursor: pointer;
       border: 2px solid transparent;
       flex-shrink: 0;
+      background: #f5f5f5;
     }
 
     .thumbnail.active {
@@ -568,6 +390,132 @@
     }
 
     /* ====================
+       SİPARİŞ FORMU
+    ==================== */
+
+    #orderForm {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+
+      background: rgba(0,0,0,0.45);
+
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    #orderForm.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .order-box {
+      width: 100%;
+      max-width: 520px;
+
+      background: white;
+
+      padding: 25px;
+
+      border-radius: 12px;
+
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .order-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 20px;
+    }
+
+    .order-header h2 {
+      font-size: 24px;
+    }
+
+    .order-header button {
+      width: 38px;
+      height: 38px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: #f5f5f5;
+
+      font-size: 25px;
+
+      cursor: pointer;
+    }
+
+    #orderSummary {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    #orderFormElement {
+      display: flex;
+      flex-direction: column;
+
+      gap: 12px;
+
+      margin-top: 20px;
+    }
+
+    #orderFormElement input,
+    #orderFormElement textarea {
+      width: 100%;
+
+      padding: 14px;
+
+      border: 1px solid #ddd;
+
+      border-radius: 7px;
+
+      font-size: 15px;
+
+      font-family: Arial, sans-serif;
+
+      outline: none;
+    }
+
+    #orderFormElement input:focus,
+    #orderFormElement textarea:focus {
+      border-color: #111;
+    }
+
+    .send-order {
+      width: 100%;
+
+      padding: 16px;
+
+      border: none;
+
+      background: #111;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      border-radius: 7px;
+    }
+
+    .send-order:hover {
+      background: #333;
+    }
+
+    /* ====================
        MOBİL
     ==================== */
 
@@ -602,10 +550,23 @@
       }
     }
 
+    @media (max-width: 600px) {
+
+      #orderForm {
+        padding: 10px;
+      }
+
+      .order-box {
+        padding: 20px;
+      }
+
+    }
+
   </style>
 </head>
 
 <body>
+
 
   <!-- ====================
        HEADER
@@ -876,7 +837,7 @@
 
 
   <!-- ====================
-       SEPET PANELİ
+       SEPET
   ==================== -->
 
   <div id="cartPanel">
@@ -903,29 +864,95 @@
 
 
     <div
-  id="cartTotal"
-  class="cart-total"
->
-  Toplam: 0 TL
+      id="cartTotal"
+      class="cart-total"
+    >
+      Toplam: 0 TL
+    </div>
 
-  <button
-    type="button"
-    onclick="checkout()"
-    style="
-      width:100%;
-      margin-top:15px;
-      padding:16px;
-      border:none;
-      background:#111;
-      color:white;
-      font-size:16px;
-      font-weight:bold;
-      cursor:pointer;
-    "
-  >
-    SİPARİŞİ TAMAMLA
-  </button>
-</div>
+  </div>
+
+
+  <!-- ====================
+       SİPARİŞ FORMU
+  ==================== -->
+
+  <div id="orderForm">
+
+    <div class="order-box">
+
+      <div class="order-header">
+
+        <h2>
+          Sipariş Bilgileri
+        </h2>
+
+        <button
+          type="button"
+          onclick="closeOrderForm()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div id="orderSummary">
+        Sipariş özeti
+      </div>
+
+
+      <form
+        id="orderFormElement"
+        onsubmit="submitOrder(event)"
+      >
+
+        <input
+          id="customerName"
+          type="text"
+          placeholder="Ad Soyad"
+          required
+        >
+
+        <input
+          id="customerPhone"
+          type="tel"
+          placeholder="Telefon"
+          required
+        >
+
+        <input
+          id="customerCity"
+          type="text"
+          placeholder="İl"
+          required
+        >
+
+        <input
+          id="customerDistrict"
+          type="text"
+          placeholder="İlçe"
+          required
+        >
+
+        <textarea
+          id="customerAddress"
+          placeholder="Açık adres"
+          rows="4"
+          required
+        ></textarea>
+
+
+        <button
+          type="submit"
+          class="send-order"
+        >
+          SİPARİŞİ GÖNDER
+        </button>
+
+      </form>
+
+    </div>
 
   </div>
 
