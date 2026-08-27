@@ -738,3 +738,38 @@ function updateCart() {
 console.log("VEYRO SCRIPT ÇALIŞIYOR");
 
 updateCart();
+// ====================
+// DEMO SİPARİŞ FORMU
+// ====================
+
+function openOrderForm() {
+  if (cart.length === 0) {
+    alert("Sepetiniz boş.");
+    return;
+  }
+
+  const orderForm = document.getElementById("orderForm");
+
+  if (orderForm) {
+    orderForm.classList.add("active");
+  }
+}
+
+function closeOrderForm() {
+  const orderForm = document.getElementById("orderForm");
+
+  if (orderForm) {
+    orderForm.classList.remove("active");
+  }
+}
+
+function submitOrder(event) {
+  event.preventDefault();
+
+  alert(
+    "Demo sipariş oluşturuldu! 🎉\n\n" +
+    "Bu bir deneme siparişidir."
+  );
+
+  closeOrderForm();
+}
