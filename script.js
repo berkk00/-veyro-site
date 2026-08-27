@@ -348,6 +348,125 @@ function checkout() {
     return;
   }
 
+  const form = document.getElementById("orderForm");
+
+  if (form) {
+    form.classList.add("active");
+  }
+
+  closeCart();
+
+  document.body.style.overflow = "hidden";
+
+  showOrderSummary();
+}
+
+
+function closeOrderForm() {
+
+  const form = document.getElementById("orderForm");
+
+  if (form) {
+    form.classList.remove("active");
+  }
+
+  document.body.style.overflow = "auto";
+}
+
+
+function showOrderSummary() {
+
+  const summary =
+    document.getElementById("orderSummary");
+
+  if (!summary) return;
+
+  let total = 0;
+
+  let html = "";
+
+  cart.forEach(function(item) {
+
+    const itemTotal =
+      item.price * item.quantity;
+
+    total += itemTotal;
+
+    html += `
+      <div style="
+        display:flex;
+        justify-content:space-between;
+        gap:15px;
+        padding:12px 0;
+        border-bottom:1px solid #eee;
+      ">
+
+        <div>
+          <strong>${item.name}</strong>
+
+          <div style="
+            color:#666;
+            font-size:14px;
+            margin-top:4px;
+          ">
+            Beden: ${item.size} · Adet: ${item.quantity}
+          </div>
+        </div>
+
+        <strong>
+          ${itemTotal} TL
+        </strong>
+
+      </div>
+    `;
+  });
+
+  summary.innerHTML = `
+    ${html}
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      padding-top:18px;
+      font-size:20px;
+      font-weight:bold;
+    ">
+      <span>Toplam</span>
+      <span>${total} TL</span>
+    </div>
+  `;
+}
+
+
+function submitOrder(event) {
+
+  event.preventDefault();
+
+  if (cart.length === 0) {
+    alert("Sepetiniz boş.");
+    return;
+  }
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const city =
+    document.getElementById("customerCity").value.trim();
+
+  const district =
+    document.getElementById("customerDistrict").value.trim();
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
+
+  if (!name || !phone || !city || !district || !address) {
+    alert("Lütfen tüm alanları doldurun.");
+    return;
+  }
+
   let total = 0;
 
   cart.forEach(function(item) {
@@ -355,11 +474,21 @@ function checkout() {
   });
 
   alert(
-    "Sipariş toplamınız: " +
-    total +
-    " TL\n\n" +
-    "Sipariş formunu bir sonraki adımda ekleyeceğiz."
+    "Siparişiniz alındı! 🎉\n\n" +
+    "Müşteri: " + name + "\n" +
+    "Toplam: " + total + " TL\n\n" +
+    "VEYRO sizinle iletişime geçecek."
   );
+
+  cart = [];
+
+  updateCart();
+
+  document.getElementById("orderForm").classList.remove("active");
+
+  document.getElementById("orderFormElement").reset();
+
+  document.body.style.overflow = "auto";
 }
 
 
