@@ -479,12 +479,32 @@
 
       <div>
 
-        <img
-          id="detailImage"
-          class="detail-image"
-          src=""
-          alt="Ürün"
-        >
+      <div class="gallery">
+
+  <button
+    class="gallery-arrow left"
+    onclick="previousPhoto()"
+  >
+    ‹
+  </button>
+
+  <img
+    id="detailImage"
+    class="detail-image"
+    src=""
+    alt="Ürün"
+  >
+
+  <button
+    class="gallery-arrow right"
+    onclick="nextPhoto()"
+  >
+    ›
+  </button>
+
+</div>
+
+<div id="thumbnailContainer" class="thumbnails"></div>  
 
       </div>
 
