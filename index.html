@@ -13,7 +13,72 @@
       margin: 0;
       padding: 0;
     }
+<div id="orderForm">
 
+  <div class="order-box">
+
+    <div class="order-header">
+      <h2>Sipariş</h2>
+
+      <button
+        type="button"
+        onclick="closeOrderForm()"
+      >
+        ×
+      </button>
+    </div>
+
+    <p style="margin-bottom:15px;color:#666;">
+      Demo sipariş bilgileri
+    </p>
+
+    <form
+      id="orderFormElement"
+      onsubmit="submitOrder(event)"
+    >
+
+      <input
+        type="text"
+        placeholder="Ad Soyad"
+        required
+      >
+
+      <input
+        type="tel"
+        placeholder="Telefon"
+        required
+      >
+
+      <input
+        type="text"
+        placeholder="İl"
+        required
+      >
+
+      <input
+        type="text"
+        placeholder="İlçe"
+        required
+      >
+
+      <textarea
+        placeholder="Adres"
+        rows="4"
+        required
+      ></textarea>
+
+      <button
+        type="submit"
+        class="send-order"
+      >
+        DEMO SİPARİŞ OLUŞTUR
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
     body {
       font-family: Arial, sans-serif;
       background: #fff;
