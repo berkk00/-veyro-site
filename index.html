@@ -9,7 +9,26 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
+    } <div id="successMessage">
+  <div class="success-box">
+    <div class="success-icon">✓</div>
+
+    <h2>Siparişiniz Alındı!</h2>
+
+    <p>
+      Sipariş bilgileriniz başarıyla bize ulaştı.
+    </p>
+
+    <p id="successTotal"></p>
+
+    <button
+      type="button"
+      onclick="closeSuccessMessage()"
+    >
+      ALIŞVERİŞE DEVAM ET
+    </button>
+  </div>
+</div>
     body {
       font-family: Arial, sans-serif;
       background: #fff;
