@@ -527,6 +527,26 @@ function setProductPhotos(photos) {
 
   showPhoto();
   createThumbnails();
+
+  const arrows =
+    document.querySelectorAll(".gallery-arrow");
+
+  arrows.forEach(function(arrow) {
+
+    if (productPhotos.length <= 1) {
+      arrow.style.display = "none";
+    } else {
+      arrow.style.display = "flex";
+    }
+
+  });
+}
+
+  productPhotos = photos;
+  currentPhoto = 0;
+
+  showPhoto();
+  createThumbnails();
 }
 
 
