@@ -13,72 +13,7 @@
       margin: 0;
       padding: 0;
     }
-<div id="orderForm">
 
-  <div class="order-box">
-
-    <div class="order-header">
-      <h2>Sipariş</h2>
-
-      <button
-        type="button"
-        onclick="closeOrderForm()"
-      >
-        ×
-      </button>
-    </div>
-
-    <p style="margin-bottom:15px;color:#666;">
-      Demo sipariş bilgileri
-    </p>
-
-    <form
-      id="orderFormElement"
-      onsubmit="submitOrder(event)"
-    >
-
-      <input
-        type="text"
-        placeholder="Ad Soyad"
-        required
-      >
-
-      <input
-        type="tel"
-        placeholder="Telefon"
-        required
-      >
-
-      <input
-        type="text"
-        placeholder="İl"
-        required
-      >
-
-      <input
-        type="text"
-        placeholder="İlçe"
-        required
-      >
-
-      <textarea
-        placeholder="Adres"
-        rows="4"
-        required
-      ></textarea>
-
-      <button
-        type="submit"
-        class="send-order"
-      >
-        DEMO SİPARİŞ OLUŞTUR
-      </button>
-
-    </form>
-
-  </div>
-
-</div>
     body {
       font-family: Arial, sans-serif;
       background: #fff;
@@ -172,7 +107,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: white;
+      background: #fff;
       z-index: 9999;
       overflow-y: auto;
       padding: 25px;
@@ -238,7 +173,7 @@
       border-radius: 50%;
 
       background: rgba(0,0,0,0.75);
-      color: white;
+      color: #fff;
 
       font-size: 32px;
       cursor: pointer;
@@ -314,7 +249,7 @@
     .size {
       width: 55px;
       height: 45px;
-      background: white;
+      background: #fff;
       border: 1px solid #ccc;
       cursor: pointer;
       font-weight: bold;
@@ -326,7 +261,7 @@
 
     .size.selected {
       background: #111;
-      color: white;
+      color: #fff;
       border-color: #111;
     }
 
@@ -339,7 +274,7 @@
       padding: 16px;
       border: none;
       background: #111;
-      color: white;
+      color: #fff;
       font-size: 17px;
       cursor: pointer;
     }
@@ -361,7 +296,7 @@
       max-width: 92%;
       height: 100%;
 
-      background: white;
+      background: #fff;
       z-index: 10000;
 
       box-shadow: -10px 0 35px rgba(0,0,0,0.15);
@@ -409,7 +344,7 @@
 
     .cart-close:hover {
       background: #111;
-      color: white;
+      color: #fff;
     }
 
     #cartItems {
@@ -446,7 +381,7 @@
       margin-top: 20px;
       padding: 20px 0;
 
-      background: white;
+      background: #fff;
 
       border-top: 2px solid #111;
 
@@ -460,13 +395,16 @@
 
     #orderForm {
       display: none;
+
       position: fixed;
       inset: 0;
+
       z-index: 20000;
 
       background: rgba(0,0,0,0.45);
 
       padding: 20px;
+
       overflow-y: auto;
     }
 
@@ -480,13 +418,14 @@
       width: 100%;
       max-width: 520px;
 
-      background: white;
+      background: #fff;
 
       padding: 25px;
 
       border-radius: 12px;
 
       max-height: 90vh;
+
       overflow-y: auto;
     }
 
@@ -521,6 +460,7 @@
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 15px;
+
       font-size: 14px;
       line-height: 1.6;
     }
@@ -565,7 +505,7 @@
 
       background: #111;
 
-      color: white;
+      color: #fff;
 
       font-size: 16px;
 
@@ -632,7 +572,6 @@
 
 <body>
 
-
   <!-- ====================
        HEADER
   ==================== -->
@@ -660,9 +599,7 @@
 
   <section class="hero">
 
-    <h1>
-      YOUR STYLE
-    </h1>
+    <h1>YOUR STYLE</h1>
 
     <p>
       VEYRO — Tarzını keşfet.
@@ -676,7 +613,6 @@
   ==================== -->
 
   <section class="products">
-
 
     <!-- SİYAH -->
 
@@ -785,7 +721,6 @@
 
     <div class="detail-content">
 
-
       <!-- GALERİ -->
 
       <div>
@@ -800,14 +735,12 @@
             ‹
           </button>
 
-
           <img
             id="detailImage"
             class="detail-image"
             src=""
             alt="Ürün"
           >
-
 
           <button
             type="button"
@@ -847,7 +780,6 @@
         <div class="size-title">
           Beden seç
         </div>
-
 
         <div class="sizes">
 
@@ -1012,7 +944,7 @@
           type="submit"
           class="send-order"
         >
-          SİPARİŞİ GÖNDER
+          DEMO SİPARİŞ OLUŞTUR
         </button>
 
       </form>
