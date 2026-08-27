@@ -12,7 +12,87 @@
       margin: 0;
       padding: 0;
     }
+<!-- ====================
+     SİPARİŞ FORMU
+==================== -->
 
+<div id="orderForm">
+
+  <div class="order-box">
+
+    <div class="order-header">
+
+      <h2>Sipariş Bilgileri</h2>
+
+      <button
+        type="button"
+        onclick="closeOrderForm()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div id="orderSummary"></div>
+
+
+    <form
+      id="orderFormElement"
+      onsubmit="submitOrder(event)"
+    >
+
+      <input
+        id="customerName"
+        type="text"
+        placeholder="Ad Soyad"
+        required
+      >
+
+      <input
+        id="customerPhone"
+        type="tel"
+        placeholder="Telefon"
+        required
+      >
+
+      <input
+        id="customerCity"
+        type="text"
+        placeholder="İl"
+        required
+      >
+
+      <input
+        id="customerDistrict"
+        type="text"
+        placeholder="İlçe"
+        required
+      >
+
+      <textarea
+        id="customerAddress"
+        placeholder="Açık adres"
+        rows="4"
+        required
+      ></textarea>
+
+
+      <button
+        type="submit"
+        class="send-order"
+      >
+        SİPARİŞİ GÖNDER
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script src="script.js"></script>
     body {
       font-family: Arial, sans-serif;
       background: #fff;
