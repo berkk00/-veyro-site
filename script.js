@@ -617,12 +617,22 @@ async function submitOrder(event) {
         }
       );
     if (response.ok) {
-      alert(
-        "Siparişiniz başarıyla alındı! 🎉\n\n" +
-        "Toplam: " +
-        order.total +
-        " TL"
-      );
+      const successMessage =
+  document.getElementById("successMessage");
+
+const successTotal =
+  document.getElementById("successTotal");
+
+if (successTotal) {
+  successTotal.textContent =
+    "Sipariş toplamı: " + order.total + " TL";
+}
+
+if (successMessage) {
+  successMessage.classList.add("active");
+}
+
+document.body.style.overflow = "hidden";
       // SEPETİ TEMİZLE
       cart = [];
       updateCart();
