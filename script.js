@@ -13,7 +13,11 @@ let selectedProduct = {
 // ====================
 
 function openCart() {
-  document.getElementById("cartPanel")?.classList.add("open");
+  const cartPanel = document.getElementById("cartPanel");
+
+  if (cartPanel) {
+    cartPanel.classList.add("open");
+  }
 }
 
 
@@ -22,7 +26,11 @@ function openCart() {
 // ====================
 
 function closeCart() {
-  document.getElementById("cartPanel")?.classList.remove("open");
+  const cartPanel = document.getElementById("cartPanel");
+
+  if (cartPanel) {
+    cartPanel.classList.remove("open");
+  }
 }
 
 
@@ -39,15 +47,30 @@ function openProduct(name, price, image) {
     size: ""
   };
 
-  document.getElementById("detailName").textContent = name;
-  document.getElementById("detailPrice").textContent = price + " TL";
-  document.getElementById("detailImage").src = image;
+  const detailName = document.getElementById("detailName");
+  const detailPrice = document.getElementById("detailPrice");
+  const detailImage = document.getElementById("detailImage");
+  const productDetail = document.getElementById("productDetail");
+
+  if (detailName) {
+    detailName.textContent = name;
+  }
+
+  if (detailPrice) {
+    detailPrice.textContent = price + " TL";
+  }
+
+  if (detailImage) {
+    detailImage.src = image;
+  }
 
   document.querySelectorAll(".size").forEach(function(button) {
     button.classList.remove("selected");
   });
 
-  document.getElementById("productDetail").classList.add("active");
+  if (productDetail) {
+    productDetail.classList.add("active");
+  }
 
   document.body.style.overflow = "hidden";
 }
@@ -59,7 +82,12 @@ function openProduct(name, price, image) {
 
 function closeProduct() {
 
-  document.getElementById("productDetail").classList.remove("active");
+  const productDetail =
+    document.getElementById("productDetail");
+
+  if (productDetail) {
+    productDetail.classList.remove("active");
+  }
 
   document.body.style.overflow = "auto";
 }
@@ -98,11 +126,14 @@ function addToCart() {
   }
 
   const existingItem = cart.find(function(item) {
+
     return (
       item.name === selectedProduct.name &&
       item.size === selectedProduct.size
     );
+
   });
+
 
   if (existingItem) {
 
@@ -111,25 +142,27 @@ function addToCart() {
   } else {
 
     cart.push({
+
       name: selectedProduct.name,
+
       price: selectedProduct.price,
+
       image: selectedProduct.image,
+
       size: selectedProduct.size,
+
       quantity: 1
+
     });
 
   }
 
+
   updateCart();
 
-  alert(
-    selectedProduct.name +
-    " (" +
-    selectedProduct.size +
-    ") sepete eklendi!"
-  );
-
   closeProduct();
+
+  openCart();
 }
 
 
@@ -139,7 +172,10 @@ function addToCart() {
 
 function increaseQuantity(index) {
 
-  cart[index].quantity++;
+  if (!cart[index]) return;
+
+  cart[index].quantity =
+    Number(cart[index].quantity) + 1;
 
   updateCart();
 }
@@ -151,10 +187,15 @@ function increaseQuantity(index) {
 
 function decreaseQuantity(index) {
 
-  cart[index].quantity--;
+  if (!cart[index]) return;
+
+  cart[index].quantity =
+    Number(cart[index].quantity) - 1;
 
   if (cart[index].quantity <= 0) {
+
     cart.splice(index, 1);
+
   }
 
   updateCart();
@@ -166,6 +207,8 @@ function decreaseQuantity(index) {
 // ====================
 
 function removeFromCart(index) {
+
+  if (!cart[index]) return;
 
   cart.splice(index, 1);
 
@@ -179,17 +222,37 @@ function removeFromCart(index) {
 
 function updateCart() {
 
-  const cartItems = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  const cartCount = document.getElementById("cartCount");
+  const cartItems =
+    document.getElementById("cartItems");
 
-  if (!cartItems || !cartTotal) return;
+  const cartTotal =
+    document.getElementById("cartTotal");
+
+  const cartCount =
+    document.getElementById("cartCount");
+
+
+  if (!cartItems || !cartTotal) {
+    return;
+  }
+
+
+  // SEPET BOŞ
 
   if (cart.length === 0) {
 
-    cartItems.innerHTML = "Sepet boş.";
+    cartItems.innerHTML = `
+      <div style="
+        text-align:center;
+        padding:30px 10px;
+        color:#777;
+      ">
+        Sepet boş.
+      </div>
+    `;
 
-    cartTotal.textContent = "Toplam: 0 TL";
+    cartTotal.textContent =
+      "Toplam: 0 TL";
 
     if (cartCount) {
       cartCount.textContent = "0";
@@ -198,10 +261,13 @@ function updateCart() {
     return;
   }
 
+
   let total = 0;
   let count = 0;
 
+
   cartItems.innerHTML = "";
+
 
   cart.forEach(function(item, index) {
 
@@ -209,100 +275,163 @@ function updateCart() {
       item.price * item.quantity;
 
     total += itemTotal;
+
     count += item.quantity;
+
 
     const itemElement =
       document.createElement("div");
 
-    itemElement.className = "cart-item";
+    itemElement.className =
+      "cart-item";
+
 
     itemElement.innerHTML = `
 
-      <div class="cart-item-name">
-        ${item.name}
-      </div>
-
-      <div class="cart-item-info">
-        Beden: ${item.size}
-      </div>
-
-      <div class="cart-item-info">
-        ${item.price} TL
-      </div>
-
       <div style="
         display:flex;
-        align-items:center;
-        gap:10px;
-        margin-top:12px;
+        gap:12px;
+        align-items:flex-start;
       ">
 
-        <button
-          onclick="decreaseQuantity(${index})"
+        <!-- ÜRÜN FOTOĞRAFI -->
+
+        <img
+          src="${item.image}"
+          alt="${item.name}"
           style="
-            width:35px;
-            height:35px;
-            border:1px solid #ccc;
-            background:white;
-            font-size:20px;
-            cursor:pointer;
+            width:80px;
+            height:80px;
+            object-fit:cover;
+            background:#f5f5f5;
+            flex-shrink:0;
           "
         >
-          −
-        </button>
 
-        <strong style="
-          min-width:25px;
-          text-align:center;
-          font-size:17px;
+
+        <!-- ÜRÜN BİLGİLERİ -->
+
+        <div style="
+          flex:1;
+          min-width:0;
         ">
-          ${item.quantity}
-        </strong>
 
-        <button
-          onclick="increaseQuantity(${index})"
-          style="
-            width:35px;
-            height:35px;
-            border:1px solid #ccc;
-            background:#111;
-            color:white;
-            font-size:20px;
-            cursor:pointer;
-          "
-        >
-          +
-        </button>
+          <div class="cart-item-name">
+            ${item.name}
+          </div>
+
+          <div class="cart-item-info">
+            Beden: ${item.size}
+          </div>
+
+          <div class="cart-item-info">
+            ${item.price} TL
+          </div>
+
+
+          <!-- ADET -->
+
+          <div style="
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-top:10px;
+          ">
+
+            <button
+              type="button"
+              onclick="decreaseQuantity(${index})"
+              style="
+                width:32px;
+                height:32px;
+                border:1px solid #ccc;
+                background:#fff;
+                font-size:20px;
+                cursor:pointer;
+              "
+            >
+              −
+            </button>
+
+
+            <span style="
+              min-width:25px;
+              text-align:center;
+              font-weight:bold;
+            ">
+              ${item.quantity}
+            </span>
+
+
+            <button
+              type="button"
+              onclick="increaseQuantity(${index})"
+              style="
+                width:32px;
+                height:32px;
+                border:none;
+                background:#111;
+                color:#fff;
+                font-size:20px;
+                cursor:pointer;
+              "
+            >
+              +
+            </button>
+
+          </div>
+
+        </div>
 
       </div>
 
-      <div class="cart-item-info" style="margin-top:10px;">
+
+      <!-- ARA TOPLAM -->
+
+      <div style="
+        margin-top:10px;
+        font-weight:bold;
+      ">
         Ara toplam: ${itemTotal} TL
       </div>
 
+
+      <!-- ÜRÜNÜ KALDIR -->
+
       <button
+        type="button"
         onclick="removeFromCart(${index})"
         style="
-          margin-top:10px;
+          margin-top:8px;
           padding:7px 12px;
           border:1px solid #ddd;
-          background:white;
+          background:#fff;
           cursor:pointer;
         "
       >
         Ürünü kaldır
       </button>
+
     `;
 
+
     cartItems.appendChild(itemElement);
+
   });
+
+
+  // TOPLAM
 
   cartTotal.textContent =
     "Toplam: " + total + " TL";
 
+
+  // SEPET SAYISI
+
   if (cartCount) {
     cartCount.textContent = count;
   }
+
 }
 
 
