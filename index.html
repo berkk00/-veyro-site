@@ -376,7 +376,73 @@
       .hero h1 {
         font-size: 32px;
       }
-    }
+    }#successMessage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#successMessage.active {
+  display: flex;
+}
+
+.success-box {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border-radius: 15px;
+  padding: 35px 25px;
+  text-align: center;
+}
+
+.success-icon {
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.success-box h2 {
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+.success-box p {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+#successTotal {
+  color: #111;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.success-box button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  border: none;
+  border-radius: 7px;
+  background: #111;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
